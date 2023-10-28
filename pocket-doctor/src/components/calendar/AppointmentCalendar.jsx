@@ -42,7 +42,8 @@ function AppointmentCalendar() {
             await addDoc(collection(database, "appointments"), {
                 reason: values.reason,
                 intervals: values.intervals,
-                userRef: userDocRef
+                userRef: userDocRef,
+                confirmed: false
                })
                appointmentModal.current.close()
 
