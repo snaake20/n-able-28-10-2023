@@ -1,6 +1,5 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { database, auth } from '../config/firebase';
 import { addDoc, collection } from 'firebase/firestore';
@@ -49,93 +48,87 @@ function SignUp() {
   });
 
   return (
-    <section className="flex justify-center items-center min-h-screen">
-      <div className="min-w-[280px]">
-        <h2 className="text-center mb-3">Sign Up</h2>
+    <>
+      <h2 className="text-center mb-3">Sign Up</h2>
+      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+        <div className="form-control w-full max-w-xs">
+          <label htmlFor="account-type" className="label">
+            <span className="label-text">Account type</span>
+          </label>
+          <select
+            id="account-type"
+            name="accountType"
+            className="select select-bordered w-full max-w-xs"
+            value={formik.values.accountType}
+            onChange={formik.handleChange}
+          >
+            <option disabled value="" label="Select an option" />
+            <option value={UserRole.DOCTOR}>Doctor</option>
+            <option value={UserRole.PATIENT}>Patient</option>
+          </select>
 
-        <h4>{/* or <Link to="/sign-in">Sign in</Link> */}</h4>
-        <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-          <div className="form-control w-full max-w-xs">
-            <label htmlFor="account-type" className="label">
-              <span className="label-text">Account type</span>
-            </label>
-            <select
-              id="account-type"
-              name="accountType"
-              className="select select-bordered w-full max-w-xs"
-              value={formik.values.accountType}
-              onChange={formik.handleChange}
-            >
-              <option disabled value="" label="Select an option" />
-              <option value={UserRole.DOCTOR}>Doctor</option>
-              <option value={UserRole.PATIENT}>Patient</option>
-            </select>
+          <span className="text-red-500 h-3  text-xs">
+            {formik.errors.accountType}
+          </span>
+        </div>
 
-            <span className="text-red-500 h-3  text-xs">
-              {formik.errors.accountType}
-            </span>
-          </div>
+        <div className="form-control w-full max-w-xs">
+          <label htmlFor="name" className="label">
+            <span className="label-text">Name</span>
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+          />
 
-          <div className="form-control w-full max-w-xs">
-            <label htmlFor="name" className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input
-              id="name"
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-            />
+          <span className="text-red-500 h-3 text-xs">{formik.errors.name}</span>
+        </div>
 
-            <span className="text-red-500 h-3 text-xs">
-              {formik.errors.name}
-            </span>
-          </div>
+        <div className="form-control w-full max-w-xs">
+          <label htmlFor="email" className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            id="email"
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+          />
 
-          <div className="form-control w-full max-w-xs">
-            <label htmlFor="email" className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              id="email"
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-            />
+          <span className="text-red-500 h-3  text-xs">
+            {formik.errors.email}
+          </span>
+        </div>
 
-            <span className="text-red-500 h-3  text-xs">
-              {formik.errors.email}
-            </span>
-          </div>
+        <div className="form-control w-full max-w-xs">
+          <label htmlFor="password" className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+          />
 
-          <div className="form-control w-full max-w-xs">
-            <label htmlFor="password" className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-            />
+          <span className="text-red-500 h-3  text-xs">
+            {formik.errors.password}
+          </span>
+        </div>
 
-            <span className="text-red-500 h-3  text-xs">
-              {formik.errors.password}
-            </span>
-          </div>
-
-          <button type="submit" className="btn w-full mt-3 btn-primary">
-            Sign Up
-          </button>
-        </form>
-      </div>
-    </section>
+        <button type="submit" className="btn w-full mt-3 btn-primary">
+          Sign Up
+        </button>
+      </form>
+    </>
   );
 }
 
