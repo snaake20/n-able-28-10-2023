@@ -14,20 +14,15 @@ import { UserRole } from './utils/constants';
 import Auth from './pages/Auth';
 import NavWrapper from './components/layout/NavWrapper';
 import { useAuthStore } from './store/auth/authStore';
-import { useState } from 'react';
 
 function RoleCheckOutlet({ route }) {
-  // take user role from store
-  // replace under this line
-
-  // const {
-  //   user: { role: userRole },
-  // } = useAuthStore();
-  const userRole = UserRole.DOCTOR;
+  const {
+    user: { role: userRole },
+  } = useAuthStore();
 
   if (!route.roles || route?.roles?.length === 0) return <Outlet />;
 
-  const hasRole = route?.roles?.some((role) => userRole === role);
+  const hasRole = route?.roles?.some((role) => role === userRole);
 
   return hasRole ? <Outlet /> : <Navigate replace to={APP_ROUTES.not_found} />;
 }
@@ -60,22 +55,15 @@ function ProtectedRoutes() {
 }
 
 export default function App() {
-  // use isLoading from react-query, role and other data for the user
+  const { user } = useAuthStore();
 
-  const {user} = useAuthStore();
+  const isLoggedIn = Boolean(user?.email);
 
-  const isLoggedIn = user.role ? true : false
-
-  const { role } = user
-
-  // const role = UserRole.DOCTOR;
-
-  console.log(isLoggedIn)
+  const { role } = user;
 
   function loadingHandler(next, fallback) {
-    // if (isLoggedIn) return next;
-    // return fallback;
-    return next;
+    if (isLoggedIn) return next;
+    return fallback;
   }
 
   return (

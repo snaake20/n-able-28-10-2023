@@ -22,7 +22,7 @@ function Card({ item, type }) {
         </p>
         <div className="card-actions">
           <div className="justify-start">
-            {role === UserRole.PACIENT && item?.document ? (
+            {role === UserRole.PATIENT && item?.document ? (
               <a href={item?.document} download>
                 View {type}
               </a>

@@ -3,5 +3,5 @@ export const APP_ROUTES = {
   appointments: '/appointments',
   referrals: '/referrals',
   prescriptions: '/prescriptions',
-  not_found: '*'
-}
+  not_found: '*',
+};

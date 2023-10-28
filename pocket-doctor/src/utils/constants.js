@@ -1,6 +1,6 @@
 export const UserRole = {
   DOCTOR: 'DOCTOR',
-  PACIENT: 'PACIENT',
+  PATIENT: 'PATIENT',
 };
 
 export const CardType = {

@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { database, auth } from '../config/firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import { useAuthStore } from '../store/auth/authStore';
+import { UserRole } from '../utils/constants';
 
 const signUpValidation = Yup.object({
   accountType: Yup.string().required('You must select an account type'),
@@ -18,7 +19,7 @@ const signUpValidation = Yup.object({
 });
 
 function SignUp() {
-  const { user, saveUser } = useAuthStore();
+  const { saveUser } = useAuthStore();
 
   const formik = useFormik({
     initialValues: {
@@ -31,20 +32,20 @@ function SignUp() {
     onSubmit: async (values) => {
       await createUserWithEmailAndPassword(auth, values.email, values.password);
 
-            const newUser = {
-                name: values.name,
-                email: values.email,
-                password: values.password,
-                role: values.accountType
-            }
+      const newUser = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        role: values.accountType.toUpperCase(),
+      };
 
-            await addDoc(collection(database, "users"),
-                newUser
-            )
-            
-            saveUser(newUser)
-        }
-    })
+      await addDoc(collection(database, 'users'), newUser);
+
+      delete newUser.password;
+
+      saveUser(newUser);
+    },
+  });
 
   return (
     <section className="flex justify-center items-center min-h-screen">
@@ -65,8 +66,8 @@ function SignUp() {
               onChange={formik.handleChange}
             >
               <option disabled value="" label="Select an option" />
-              <option value="doctor">Doctor</option>
-              <option value="patient">Patient</option>
+              <option value={UserRole.DOCTOR}>Doctor</option>
+              <option value={UserRole.PATIENT}>Patient</option>
             </select>
 
             <span className="text-red-500 h-3  text-xs">
