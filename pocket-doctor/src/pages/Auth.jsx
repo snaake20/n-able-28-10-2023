@@ -1,5 +1,5 @@
-import SignUp from "./SignUp";
+import SignUp from './SignUp';
 
 export default function Auth() {
-    return <SignUp />
+  return <SignUp />;
 }

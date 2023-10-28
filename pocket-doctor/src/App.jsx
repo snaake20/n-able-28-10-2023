@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   BrowserRouter,
   Navigate,
@@ -18,8 +19,10 @@ function RoleCheckOutlet({ route }) {
   // take user role from store
   // replace under this line
 
-  const {user: {role: userRole},} = useAuthStore();
-  // const userRole = UserRole.DOCTOR;
+  // const {
+  //   user: { role: userRole },
+  // } = useAuthStore();
+  const userRole = UserRole.DOCTOR;
 
   if (!route.roles || route?.roles?.length === 0) return <Outlet />;
 
@@ -58,16 +61,18 @@ function ProtectedRoutes() {
 export default function App() {
   // use isLoading from react-query, role and other data for the user
 
-  const {user: {role}, isLoggedIn} = useAuthStore();
+  // const {
+  //   user: { role },
+  //   isLoggedIn,
+  // } = useAuthStore();
 
-  console.log(role, isLoggedIn)
 
-  // const role = UserRole.DOCTOR;
+  const role = UserRole.DOCTOR;
 
   function loadingHandler(next, fallback) {
-    if (isLoggedIn) return next;
-    return fallback;
-    // return next;
+    // if (isLoggedIn) return next;
+    // return fallback;
+    return next;
   }
 
   return (
