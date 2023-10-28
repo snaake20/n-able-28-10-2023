@@ -9,7 +9,6 @@ export const usePrescriptionStore = create((set) => ({
   },
   getPrescriptionsFromFirebase: async () => {
     const querySnapshot = await getDocs(collection(database, 'prescriptions'));
-    console.log(querySnapshot);
     let prescriptions = [];
     querySnapshot.forEach((doc) => {
       const prescription = doc.data();

@@ -39,10 +39,8 @@ export default function SignIn() {
 
             if (!querySnapshot.empty) {
               // Assuming there is only one user with the given email
-              console.log(querySnapshot.docs[0]);
               const userDocument = querySnapshot.docs[0].data();
               userDocument.id = querySnapshot.docs[0].id;
-              console.log('User Document:', userDocument);
               saveUser(userDocument);
             }
           } catch (error) {

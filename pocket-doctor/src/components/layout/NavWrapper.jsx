@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import map from 'lodash/map';
 import routes from '../../app/routes.config';
 import { APP_ROUTES } from '../../app/routes';
+import { useAuthStore } from '../../store/auth/authStore';
+import { auth } from '../../config/firebase';
 
 export default function NavWrapper({ children }) {
+  const { logout } = useAuthStore();
   // filter options based on roles
   return (
     <div className="drawer lg:drawer-open">
@@ -25,6 +28,17 @@ export default function NavWrapper({ children }) {
               </li>
             );
           })}
+          <li>
+            <a
+              href=""
+              onClick={async () => {
+                await auth.signOut();
+                logout();
+              }}
+            >
+              Sign Out
+            </a>
+          </li>
         </ul>
       </div>
     </div>
