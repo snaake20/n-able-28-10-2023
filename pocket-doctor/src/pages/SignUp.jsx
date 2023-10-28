@@ -39,7 +39,8 @@ function SignUp() {
         role: values.accountType.toUpperCase(),
       };
 
-      await addDoc(collection(database, 'users'), newUser);
+      const userRef = await addDoc(collection(database, 'users'), newUser);
+      newUser.id = userRef.id
 
       delete newUser.password;
 
