@@ -12,10 +12,13 @@ import { APP_ROUTES } from './app/routes';
 import { UserRole } from './utils/constants';
 import Auth from './pages/Auth';
 import NavWrapper from './components/layout/NavWrapper';
+import { useAuthStore } from './store/auth/authStore';
 
 function RoleCheckOutlet({ route }) {
   // take user role from store
   // replace under this line
+
+  // const {user: {role: userRole},} = useAuthStore();
   const userRole = UserRole.DOCTOR;
 
   if (!route.roles || route?.roles?.length === 0) return <Outlet />;
@@ -55,12 +58,11 @@ function ProtectedRoutes() {
 export default function App() {
   // use isLoading from react-query, role and other data for the user
 
+  // const {user: {role}, isLoggedIn} = useAuthStore();
+
   const role = UserRole.DOCTOR;
 
   function loadingHandler(next, fallback) {
-    // if (isLoading) return (<div className="flex h-screen justify-center items-center bg-white">
-    // 	<Spinner styles="w-12 h-12"/>
-    // </div>);
     // if (isLoggedIn) return next;
     // return fallback;
     return next;
