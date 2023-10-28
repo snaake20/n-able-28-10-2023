@@ -1,3 +1,7 @@
+import SignUp from "./pages/SignUp";
+
 export default function App() {
-  return <></>;
+  return <div>
+    <SignUp />
+  </div>;
 }
