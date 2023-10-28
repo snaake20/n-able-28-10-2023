@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // import { Link } from "react-router-dom"
 
@@ -7,7 +7,8 @@ import * as Yup from "yup"
 
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { database, auth } from "../config/firebase"
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
+import { useAuthStore } from '../store/auth/authStore'
 
 const signUpValidation = Yup.object({
     accountType: Yup.string().required("You must select an account type"),
@@ -17,6 +18,8 @@ const signUpValidation = Yup.object({
 })
 
 function SignUp() {
+    const { user, saveUser} = useAuthStore()
+
     const formik = useFormik({
         initialValues: {
             accountType: "",
@@ -27,23 +30,19 @@ function SignUp() {
         validationSchema: signUpValidation,
         onSubmit: async (values) => {
             await createUserWithEmailAndPassword(auth, values.email, values.password)
-            const userRef = await addDoc(collection(database, "users"), {
+
+            const user = {
                 name: values.name,
                 email: values.email,
                 password: values.password,
-            })
-
-            const { accountType } = values
-
-            if(accountType === "doctor"){
-                await addDoc(collection(database, "doctors"), {
-                    userRef
-                })
-            }else if(accountType === "patient"){
-                await addDoc(collection(database, "patients"), {
-                    userRef
-                })
+                role: values.accountType
             }
+
+            await addDoc(collection(database, "users"),
+                user
+            )
+            
+            saveUser(user)
         }
     })
 

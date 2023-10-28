@@ -1,1 +1,5 @@
-export default function Auth() {}
+import SignUp from "./SignUp";
+
+export default function Auth() {
+    return <SignUp />
+}
