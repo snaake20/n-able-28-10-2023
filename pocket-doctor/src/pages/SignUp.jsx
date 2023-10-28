@@ -31,24 +31,20 @@ function SignUp() {
     onSubmit: async (values) => {
       await createUserWithEmailAndPassword(auth, values.email, values.password);
 
-      const newUser = {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        role: values.accountType?.toUpperCase(),
-      };
+            const newUser = {
+                name: values.name,
+                email: values.email,
+                password: values.password,
+                role: values.accountType
+            }
 
-      await addDoc(collection(database, 'users'), newUser);
-
-      delete newUser.password;
-
-      console.log(newUser);
-
-      saveUser(newUser);
-    },
-  });
-
-  console.log(user);
+            await addDoc(collection(database, "users"),
+                newUser
+            )
+            
+            saveUser(newUser)
+        }
+    })
 
   return (
     <section className="flex justify-center items-center min-h-screen">

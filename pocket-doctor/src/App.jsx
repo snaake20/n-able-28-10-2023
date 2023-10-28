@@ -14,6 +14,7 @@ import { UserRole } from './utils/constants';
 import Auth from './pages/Auth';
 import NavWrapper from './components/layout/NavWrapper';
 import { useAuthStore } from './store/auth/authStore';
+import { useState } from 'react';
 
 function RoleCheckOutlet({ route }) {
   // take user role from store
@@ -61,13 +62,15 @@ function ProtectedRoutes() {
 export default function App() {
   // use isLoading from react-query, role and other data for the user
 
-  // const {
-  //   user: { role },
-  //   isLoggedIn,
-  // } = useAuthStore();
+  const {user} = useAuthStore();
 
+  const isLoggedIn = user.role ? true : false
 
-  const role = UserRole.DOCTOR;
+  const { role } = user
+
+  // const role = UserRole.DOCTOR;
+
+  console.log(isLoggedIn)
 
   function loadingHandler(next, fallback) {
     // if (isLoggedIn) return next;

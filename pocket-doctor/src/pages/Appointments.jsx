@@ -1,3 +1,7 @@
+import AppointmentCalendar from "../components/calendar/AppointmentCalendar";
+
 export default function Appointments() {
-  return <></>;
+  return <div>
+    <AppointmentCalendar />
+  </div>;
 }
