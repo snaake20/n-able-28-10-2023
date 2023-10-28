@@ -76,7 +76,7 @@ export default function App() {
               <Navigate
                 to={
                   role === UserRole.DOCTOR
-                    ? APP_ROUTES.referrals
+                    ? APP_ROUTES.prescriptions
                     : APP_ROUTES.appointments
                 }
                 replace

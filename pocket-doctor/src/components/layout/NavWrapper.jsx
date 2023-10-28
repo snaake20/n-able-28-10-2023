@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 import map from 'lodash/map';
 import routes from '../../app/routes.config';
@@ -8,9 +9,7 @@ export default function NavWrapper({ children }) {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center justify-center">
-        {children}
-      </div>
+      <div className="drawer-content flex flex-col">{children}</div>
       <div className="drawer-side">
         <label
           htmlFor="my-drawer-2"

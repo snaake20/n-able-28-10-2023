@@ -3,7 +3,6 @@ import Appointments from '../pages/Appointments';
 import NotFound from '../pages/NotFound';
 import Prescriptions from '../pages/Prescriptions';
 import Profile from '../pages/Profile';
-import Referrals from '../pages/Referrals';
 import { UserRole } from '../utils/constants';
 
 export default [
@@ -13,13 +12,6 @@ export default [
     headTitle: 'PocketDoctor - Appointments',
     roles: [UserRole.DOCTOR, UserRole.PATIENT],
     title: 'Appointments',
-  },
-  {
-    path: APP_ROUTES.referrals,
-    element: Referrals,
-    headTitle: 'PocketDoctor - Referrals',
-    roles: [UserRole.DOCTOR, UserRole.PATIENT],
-    title: 'Referrals',
   },
   {
     path: APP_ROUTES.prescriptions,
